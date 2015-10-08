@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">LocatioNinja</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_location">LocationActivity</string>
+    <string name="title_activity_launch">LaunchActivity</string>
+    <string name="copyright">Malabika Das,Rutgers University - New Brunswick, NJ, USA</string>
+</resources>
