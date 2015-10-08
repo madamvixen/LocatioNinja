@@ -6,7 +6,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
 import android.location.Criteria;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -28,6 +30,12 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener {
 
 //    final static int GET_LOCATION = 1;
@@ -35,15 +43,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     TextView longitudeTV;
     TextView latitudeTV;
+    TextView addressTV;
 
 
     LocationManager locManager;
     Location myLoc;
 
+    Geocoder geocoder;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        Intent intent = new Intent(this, LaunchActivity.class);
+        if(stopService(intent))
+        {
+            Log.e("LocatioNinja","LaunchActivity stopped");
+        }
+
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -51,6 +69,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         longitudeTV = (TextView) findViewById(R.id.longitudeText);
         latitudeTV = (TextView) findViewById(R.id.latitudeText);
+        addressTV = (TextView) findViewById(R.id.addressTextView);
+
+        if(Geocoder.isPresent()) {
+            Log.e("LocatioNinja","Geocoder Present");
+            geocoder = new Geocoder(MapsActivity.this);
+        }
+        else
+            Log.e("LocatioNinja","Geocoder Not Present");
 
     }
 
@@ -86,7 +112,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
         mMap.setMyLocationEnabled(true);
 
+        //Check if location is enabled -- my checking if network or Gps are available
+
+
         myLoc = mMap.getMyLocation();
+
+        if(myLoc != null)
+        {
+            Log.e("LocatioNinja", "Location from Map is null");
+        }
+
 
         locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
@@ -115,11 +150,31 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             longitudeTV.setText(String.valueOf(myLoc.getLongitude()));
             latitudeTV.setText(String.valueOf(myLoc.getLatitude()));
+
+
+            List<Address> getAddresses = null;
+            if(geocoder!=null)
+            {
+                Log.e("LocatioNinja", "Geocoder present, getting the address");
+                try {
+
+                    getAddresses = geocoder.getFromLocation(myLoc.getLatitude(), myLoc.getLongitude(),10);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(getAddresses!=null) {
+                for (int i = 0; i < getAddresses.size(); i++) {
+                    Log.e("LocationNinja", getAddresses.get(i).toString());
+                    addressTV.setText(getAddresses.get(0).getAddressLine(0) + "\n" + getAddresses.get(0).getAddressLine(1)+ "\n" + getAddresses.get(0).getAddressLine(2) );
+                }
+            }
+
         }
         else {
             //onLocationChanged(myLoc);
             Log.e("LocatioNinja", "Location is Null");
-//            locManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+            locManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
         }
 //
 //        mMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
@@ -129,6 +184,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myPresentLoc, 20));
 //            }
 //        });
+
 
     }
     boolean mapupd = false;
@@ -150,9 +206,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Log.e("LocatioNinja", "Checking permissions");
                 return;
             }
+
         myLoc= locManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
         if(!mapupd)
             updateMarker(myLoc);
+
+
+
 //        longitudeTV.setText(String.valueOf(myLoc.getLongitude()));
 //        latitudeTV.setText(String.valueOf(myLoc.getLatitude()));
 
