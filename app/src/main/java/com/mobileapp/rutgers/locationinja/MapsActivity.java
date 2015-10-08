@@ -22,6 +22,9 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -36,7 +39,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener {
+public class MapsActivity extends Activity implements GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener, OnMapReadyCallback, LocationListener {
 
 //    final static int GET_LOCATION = 1;
     private GoogleMap mMap;
@@ -50,20 +53,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Location myLoc;
 
     Geocoder geocoder;
+    GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        Intent intent = new Intent(this, LaunchActivity.class);
-        if(stopService(intent))
-        {
-            Log.e("LocatioNinja","LaunchActivity stopped");
-        }
 
+        this.buildGoogleApiClient();
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+        MapFragment mapFragment = (MapFragment) getFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
@@ -71,13 +71,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         latitudeTV = (TextView) findViewById(R.id.latitudeText);
         addressTV = (TextView) findViewById(R.id.addressTextView);
 
-        if(Geocoder.isPresent()) {
-            Log.e("LocatioNinja","Geocoder Present");
+        if (Geocoder.isPresent()) {
+            Log.e("LocatioNinja", "Geocoder Present");
             geocoder = new Geocoder(MapsActivity.this);
-        }
-        else
-            Log.e("LocatioNinja","Geocoder Not Present");
+        } else
+            Log.e("LocatioNinja", "Geocoder Not Present");
 
+
+    }
+
+    protected synchronized void buildGoogleApiClient() {
+        Log.e("LocationNinja", "Inside: Building google API Client");
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+        mGoogleApiClient.connect();
     }
 
 //    @Override
@@ -106,76 +116,74 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
      */
+
     LatLng myPresentLoc;
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.setMyLocationEnabled(true);
+        mMap.setMyLocationEnabled(true); //gives the blue-dot indicating the present location of the user
 
-        //Check if location is enabled -- my checking if network or Gps are available
+        //TODO:Check if location is enabled -- my checking if network or Gps are available
 
-
-        myLoc = mMap.getMyLocation();
-
-        if(myLoc != null)
-        {
-            Log.e("LocatioNinja", "Location from Map is null");
-        }
-
-
-        locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-        if(locManager!=null)
-            Log.e("LocatioNinja", "Got Location Manager");
-
-        if (checkCallingOrSelfPermission("android.permission.ACCESS_FINE_LOCATION") != PackageManager.PERMISSION_GRANTED)
-            if (checkCallingOrSelfPermission("android.permission.ACCESS_COARSE_LOCATION") != PackageManager.PERMISSION_GRANTED) {
-                Log.e("LocatioNinja", "No permissions");
-                return;
-            }
-
-            Criteria criteria = new Criteria();
-            Log.e("locationNinja", "Checking for location");
-            myLoc = locManager.getLastKnownLocation(locManager.getBestProvider(criteria, true));
-
-        //test message
-        Log.e("LocatioNinja", "Get Location");
-
-        if (myLoc != null) {
-            Log.e("LocatioNinja", "my Location not null-- On Map ready");
-
-            myPresentLoc = new LatLng(myLoc.getLatitude(), myLoc.getLongitude());
-            mMap.addMarker(new MarkerOptions().position(myPresentLoc).title("I am Here"));
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myPresentLoc, 13));
-
-            longitudeTV.setText(String.valueOf(myLoc.getLongitude()));
-            latitudeTV.setText(String.valueOf(myLoc.getLatitude()));
-
-
-            List<Address> getAddresses = null;
-            if(geocoder!=null)
-            {
-                Log.e("LocatioNinja", "Geocoder present, getting the address");
-                try {
-
-                    getAddresses = geocoder.getFromLocation(myLoc.getLatitude(), myLoc.getLongitude(),10);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            if(getAddresses!=null) {
-                for (int i = 0; i < getAddresses.size(); i++) {
-                    Log.e("LocationNinja", getAddresses.get(i).toString());
-                    addressTV.setText(getAddresses.get(0).getAddressLine(0) + "\n" + getAddresses.get(0).getAddressLine(1)+ "\n" + getAddresses.get(0).getAddressLine(2) );
-                }
-            }
-
-        }
-        else {
-            //onLocationChanged(myLoc);
-            Log.e("LocatioNinja", "Location is Null");
-            locManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
-        }
+//        myLoc = mMap.getMyLocation(); //Deprecated - doesn't return anything
+//
+//        locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+//
+//        if (checkCallingOrSelfPermission("android.permission.ACCESS_FINE_LOCATION") != PackageManager.PERMISSION_GRANTED)
+//            if (checkCallingOrSelfPermission("android.permission.ACCESS_COARSE_LOCATION") != PackageManager.PERMISSION_GRANTED) {
+//                //TODO: Update the code with request for permission, from user; to be done on runtime and save the state;
+//                return;
+//            }
+//
+//        if (locManager != null) {
+//            Criteria criteria = new Criteria();
+//            Log.e("locationNinja", "Checking for location");
+//            myLoc = locManager.getLastKnownLocation(locManager.getBestProvider(criteria, true));
+//        }
+//
+//        if (myLoc != null) {
+//            Log.e("LocatioNinja", "my Location not null-- On Map ready");
+//
+//            myPresentLoc = new LatLng(myLoc.getLatitude(), myLoc.getLongitude());
+//            mMap.addMarker(new MarkerOptions().position(myPresentLoc).title("I am Here"));
+//            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myPresentLoc, 13));
+//
+//            longitudeTV.setText(String.valueOf(myLoc.getLongitude()));
+//            latitudeTV.setText(String.valueOf(myLoc.getLatitude()));
+//
+//
+////            ---------------------------------------------------------------------------------------------------------------------------------------
+////            Using GeoCoder for obtaining the address given the location;
+////            geoCoder created in onCreate() method
+//
+//            List<Address> getAddresses = null;
+//            if(geocoder!=null)
+//            {
+//                Log.e("LocatioNinja", "Geocoder present, getting the address");
+//                try {
+//
+//                    getAddresses = geocoder.getFromLocation(myLoc.getLatitude(), myLoc.getLongitude(),10);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//
+//            if(getAddresses!=null) {
+//                for (int i = 0; i < getAddresses.size(); i++) {
+//                    Log.e("LocationNinja", getAddresses.get(i).toString());
+//                    String addString = getAddresses.get(0).getAddressLine(0) + "\n" + getAddresses.get(0).getAddressLine(1)+ "\n" + getAddresses.get(0).getAddressLine(2);
+//                    addressTV.setText(addString);
+//                }
+//            }
+////            ---------------------------------------------------------------------------------------------------------------------------------------
+//
+//
+//        }
+//        else {
+//            //onLocationChanged(myLoc);
+//            Log.e("LocatioNinja", "Location is Null");
+//            locManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+//        }
 //
 //        mMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
 //            @Override
@@ -187,6 +195,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
     }
+
     boolean mapupd = false;
 
     @Override
@@ -211,12 +220,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         if(!mapupd)
             updateMarker(myLoc);
-
-
-
-//        longitudeTV.setText(String.valueOf(myLoc.getLongitude()));
-//        latitudeTV.setText(String.valueOf(myLoc.getLatitude()));
-
     }
 
     public void updateMarker(Location location)
@@ -226,17 +229,45 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             myPresentLoc = new LatLng(location.getLatitude(), location.getLongitude());
             mMap.addMarker(new MarkerOptions().position(myPresentLoc).title("I am Here"));
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myPresentLoc,14));
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myPresentLoc,15));
             mapupd = true;
 
-            longitudeTV.setText(String.valueOf(myLoc.getLongitude()));
-            latitudeTV.setText(String.valueOf(myLoc.getLatitude()));
+            longitudeTV.setText(String.valueOf(location.getLongitude()));
+            latitudeTV.setText(String.valueOf(location.getLatitude()));
+
+//            ---------------------------------------------------------------------------------------------------------------------------------------
+//            Using GeoCoder for obtaining the address given the location;
+//            geoCoder created in onCreate() method
+
+            List<Address> getAddresses = null;
+            if(geocoder!=null)
+            {
+                Log.e("LocatioNinja", "Geocoder present, getting the address");
+                try {
+
+                    getAddresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(),10);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if(getAddresses!=null) {
+                for (int i = 0; i < getAddresses.size(); i++) {
+                    Log.e("LocationNinja", getAddresses.get(i).toString());
+                    String addString = getAddresses.get(0).getAddressLine(0) + "\n" + getAddresses.get(0).getAddressLine(1)+ "\n" + getAddresses.get(0).getAddressLine(2);
+                    addressTV.setText(addString);
+                }
+            }
+//            ---------------------------------------------------------------------------------------------------------------------------------------
+
         }
         else {
             //onLocationChanged(myLoc);
             Log.e("LocatioNinja", "Location is Null");
 
         }
+
+
     }
 
 
@@ -252,6 +283,31 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onProviderDisabled(String provider) {
+
+    }
+
+    Location myLastlocation;
+    @Override
+    public void onConnected(Bundle bundle) {
+
+        Log.e("LocatioNinja", "Inside getConnected method");
+        myLastlocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        if(myLastlocation!=null)
+        {
+            Toast.makeText(this, "Latitude: " +myLastlocation.getLatitude() +" , " + "Longitude: "+myLastlocation.getLongitude(), Toast.LENGTH_SHORT).show();
+            updateMarker(myLastlocation);
+        }
+
+
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
 
     }
 }

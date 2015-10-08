@@ -18,15 +18,18 @@ public class LaunchActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch);
 
-        Log.e("LocatioNinja", "In oncreate of launch activity");
+//        Log.e("LocatioNinja", "In oncreate of launch activity");
 
         mHandler.postDelayed(new Runnable() {
             public void run() {
                 Toast.makeText(LaunchActivity.this, "WELCOME!", Toast.LENGTH_SHORT).show();
-                Log.e("LocatioNinja", "Out of launch activity");
-                Intent mainIntent = new Intent(LaunchActivity.this, MapsActivity.class);
+//                Log.e("LocatioNinja", "Out of launch activity");
+
+                Intent mainIntent = new Intent(getApplicationContext(), MapsActivity.class);
+                mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(mainIntent);
             }
         }, 2500);
     }
 }
+
