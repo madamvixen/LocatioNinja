@@ -3,7 +3,9 @@ package com.mobileapp.rutgers.locationinja;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -13,6 +15,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
+import android.provider.Settings;
 import android.provider.SyncStateContract;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -48,6 +51,9 @@ public class MapsActivity extends Activity implements GoogleApiClient.Connection
     TextView latitudeTV;
     TextView addressTV;
 
+    boolean locationEnabled;
+    Thread checkGPSStatus;
+
 
     LocationManager locManager;
     Location myLoc;
@@ -60,6 +66,7 @@ public class MapsActivity extends Activity implements GoogleApiClient.Connection
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
+        //Building the API client - for Location Services API
         this.buildGoogleApiClient();
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -77,7 +84,28 @@ public class MapsActivity extends Activity implements GoogleApiClient.Connection
         } else
             Log.e("LocatioNinja", "Geocoder Not Present");
 
+        checkGPSStatus = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(!isGPSEnabled()&&!isNetworkEnabled())
+                {
 
+                }
+            }
+        });
+
+    }
+
+    private boolean isGPSEnabled()
+    {
+        LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+    }
+
+    private boolean isNetworkEnabled()
+    {
+        LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
+        return locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
     }
 
     protected synchronized void buildGoogleApiClient() {
@@ -87,25 +115,21 @@ public class MapsActivity extends Activity implements GoogleApiClient.Connection
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
                 .build();
-        mGoogleApiClient.connect();
+
+        //TODO: Check if location enabled - else don't go ahead with application
+
+        if (!isGPSEnabled() && !isNetworkEnabled()) {
+            Log.e("LocatioNinja", "Showing alert dialog for enabling location");
+            showSettingsAlert();
+        }
     }
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent _intent)
-//    {
-//        Bundle bundle;
-//        if(requestCode == 1)
-//        {
-//            if(resultCode == RESULT_OK)
-//            {
-//                bundle = _intent.getExtras();
-//                myLoc = (Location)bundle.get("LOCATION");
-//
-//                longitudeTV.setText(String.valueOf(myLoc.getLongitude()));
-//                latitudeTV.setText(String.valueOf(myLoc.getLatitude()));
-//            }
-//        }
-//    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+    }
 
     /**
      * Manipulates the map once available.
@@ -141,49 +165,7 @@ public class MapsActivity extends Activity implements GoogleApiClient.Connection
 //            myLoc = locManager.getLastKnownLocation(locManager.getBestProvider(criteria, true));
 //        }
 //
-//        if (myLoc != null) {
-//            Log.e("LocatioNinja", "my Location not null-- On Map ready");
-//
-//            myPresentLoc = new LatLng(myLoc.getLatitude(), myLoc.getLongitude());
-//            mMap.addMarker(new MarkerOptions().position(myPresentLoc).title("I am Here"));
-//            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myPresentLoc, 13));
-//
-//            longitudeTV.setText(String.valueOf(myLoc.getLongitude()));
-//            latitudeTV.setText(String.valueOf(myLoc.getLatitude()));
-//
-//
-////            ---------------------------------------------------------------------------------------------------------------------------------------
-////            Using GeoCoder for obtaining the address given the location;
-////            geoCoder created in onCreate() method
-//
-//            List<Address> getAddresses = null;
-//            if(geocoder!=null)
-//            {
-//                Log.e("LocatioNinja", "Geocoder present, getting the address");
-//                try {
-//
-//                    getAddresses = geocoder.getFromLocation(myLoc.getLatitude(), myLoc.getLongitude(),10);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//
-//            if(getAddresses!=null) {
-//                for (int i = 0; i < getAddresses.size(); i++) {
-//                    Log.e("LocationNinja", getAddresses.get(i).toString());
-//                    String addString = getAddresses.get(0).getAddressLine(0) + "\n" + getAddresses.get(0).getAddressLine(1)+ "\n" + getAddresses.get(0).getAddressLine(2);
-//                    addressTV.setText(addString);
-//                }
-//            }
-////            ---------------------------------------------------------------------------------------------------------------------------------------
-//
-//
-//        }
-//        else {
-//            //onLocationChanged(myLoc);
-//            Log.e("LocatioNinja", "Location is Null");
-//            locManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
-//        }
+
 //
 //        mMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
 //            @Override
@@ -259,17 +241,12 @@ public class MapsActivity extends Activity implements GoogleApiClient.Connection
                 }
             }
 //            ---------------------------------------------------------------------------------------------------------------------------------------
-
         }
         else {
             //onLocationChanged(myLoc);
             Log.e("LocatioNinja", "Location is Null");
-
         }
-
-
     }
-
 
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
@@ -297,8 +274,6 @@ public class MapsActivity extends Activity implements GoogleApiClient.Connection
             Toast.makeText(this, "Latitude: " +myLastlocation.getLatitude() +" , " + "Longitude: "+myLastlocation.getLongitude(), Toast.LENGTH_SHORT).show();
             updateMarker(myLastlocation);
         }
-
-
     }
 
     @Override
@@ -308,7 +283,58 @@ public class MapsActivity extends Activity implements GoogleApiClient.Connection
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-
+        Toast.makeText(this, "Services are unavailable right now: " + connectionResult.getErrorMessage(), Toast.LENGTH_SHORT).show();
+        mGoogleApiClient.reconnect();
+//        if(mGoogleApiClient.isConnected())
+//            this.onConnected(); //Get the bundle-- save the last known location in a bundle
     }
+
+    public void showSettingsAlert() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(MapsActivity.this)
+                                            .setTitle("GPS SETTINGS")
+                                            .setMessage("GPS not enabled; Enable it now in the settings menu.")
+                                            .setCancelable(false);
+
+        alertDialog.setNeutralButton("Settings", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                MapsActivity.this.startActivityForResult(intent, 2);
+            }
+        });
+        alertDialog.show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent _intent)
+    {
+        if(requestCode == 2)
+        {
+                if(isGPSEnabled()&&isNetworkEnabled()) {
+                    mGoogleApiClient.connect();
+                }
+        }
+    }
+
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent _intent)
+//    {
+//        Bundle bundle;
+//        if(requestCode == 1)
+//        {
+//            if(resultCode == RESULT_OK)
+//            {
+//                bundle = _intent.getExtras();
+//                myLoc = (Location)bundle.get("LOCATION");
+//
+//                longitudeTV.setText(String.valueOf(myLoc.getLongitude()));
+//                latitudeTV.setText(String.valueOf(myLoc.getLatitude()));
+//            }
+//        }
+//    }
+
+
+
+
 }
 

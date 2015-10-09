@@ -20,10 +20,6 @@ public class MyLocationGetter implements LocationListener {
     }
 
     private Location getLocation() {
-
-
-
-
         return null;
     }
 
