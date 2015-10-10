@@ -22,6 +22,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -84,16 +86,14 @@ public class MapsActivity extends Activity implements GoogleApiClient.Connection
         } else
             Log.e("LocatioNinja", "Geocoder Not Present");
 
-        checkGPSStatus = new Thread(new Runnable() {
+        runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                while(!isGPSEnabled()&&!isNetworkEnabled())
-                {
-
+                if(!isGPSEnabled()&&!isNetworkEnabled()){
+                    showSettingsAlert();
                 }
             }
         });
-
     }
 
     private boolean isGPSEnabled()
@@ -122,13 +122,19 @@ public class MapsActivity extends Activity implements GoogleApiClient.Connection
             Log.e("LocatioNinja", "Showing alert dialog for enabling location");
             showSettingsAlert();
         }
+        else
+            mGoogleApiClient.connect();
     }
-
 
     @Override
     public void onResume()
     {
         super.onResume();
+        if(!mGoogleApiClient.isConnected())
+        {
+            mGoogleApiClient.connect();
+        }
+
     }
 
     /**
@@ -187,14 +193,7 @@ public class MapsActivity extends Activity implements GoogleApiClient.Connection
 
         if (checkCallingOrSelfPermission("android.permission.ACCESS_FINE_LOCATION") != PackageManager.PERMISSION_GRANTED)
             if (checkCallingOrSelfPermission("android.permission.ACCESS_COARSE_LOCATION") != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    public void requestPermissions(@NonNull String[] permissions, int requestCode)
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for Activity#requestPermissions for more details.
-                Log.e("LocatioNinja", "Checking permissions");
+
                 return;
             }
 
@@ -217,35 +216,43 @@ public class MapsActivity extends Activity implements GoogleApiClient.Connection
             longitudeTV.setText(String.valueOf(location.getLongitude()));
             latitudeTV.setText(String.valueOf(location.getLatitude()));
 
+            updateAddress(location);
+
+        }
+        else{
+            Toast.makeText(this, "Location not available", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    private void updateAddress(Location location)
+    {
+
 //            ---------------------------------------------------------------------------------------------------------------------------------------
 //            Using GeoCoder for obtaining the address given the location;
 //            geoCoder created in onCreate() method
-
+        if(location!=null) {
             List<Address> getAddresses = null;
-            if(geocoder!=null)
-            {
+            if (geocoder != null) {
                 Log.e("LocatioNinja", "Geocoder present, getting the address");
                 try {
 
-                    getAddresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(),10);
+                    getAddresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 10);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
 
-            if(getAddresses!=null) {
+            if (getAddresses != null) {
                 for (int i = 0; i < getAddresses.size(); i++) {
                     Log.e("LocationNinja", getAddresses.get(i).toString());
-                    String addString = getAddresses.get(0).getAddressLine(0) + "\n" + getAddresses.get(0).getAddressLine(1)+ "\n" + getAddresses.get(0).getAddressLine(2);
+                    String addString = getAddresses.get(0).getAddressLine(0) + "\n" + getAddresses.get(0).getAddressLine(1) + "\n" + getAddresses.get(0).getAddressLine(2);
                     addressTV.setText(addString);
                 }
             }
 //            ---------------------------------------------------------------------------------------------------------------------------------------
         }
-        else {
-            //onLocationChanged(myLoc);
-            Log.e("LocatioNinja", "Location is Null");
-        }
+
     }
 
     @Override
@@ -274,6 +281,10 @@ public class MapsActivity extends Activity implements GoogleApiClient.Connection
             Toast.makeText(this, "Latitude: " +myLastlocation.getLatitude() +" , " + "Longitude: "+myLastlocation.getLongitude(), Toast.LENGTH_SHORT).show();
             updateMarker(myLastlocation);
         }
+        else{
+            //request location updates
+
+        }
     }
 
     @Override
@@ -290,7 +301,7 @@ public class MapsActivity extends Activity implements GoogleApiClient.Connection
     }
 
     public void showSettingsAlert() {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(MapsActivity.this)
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(MapsActivity.this)
                                             .setTitle("GPS SETTINGS")
                                             .setMessage("GPS not enabled; Enable it now in the settings menu.")
                                             .setCancelable(false);
@@ -302,6 +313,16 @@ public class MapsActivity extends Activity implements GoogleApiClient.Connection
                 MapsActivity.this.startActivityForResult(intent, 2);
             }
         });
+
+        alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                if(!isGPSEnabled()&&!isNetworkEnabled())
+                {
+                    alertDialog.show();
+                }
+            }
+        });
         alertDialog.show();
     }
 
@@ -311,7 +332,12 @@ public class MapsActivity extends Activity implements GoogleApiClient.Connection
         if(requestCode == 2)
         {
                 if(isGPSEnabled()&&isNetworkEnabled()) {
+
                     mGoogleApiClient.connect();
+                }
+                else
+                {
+                    showSettingsAlert();
                 }
         }
     }
