@@ -10,10 +10,10 @@
     android:layout_margin="5dp" />
 
     <Button
+        android:id="@+id/CheckInButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=" Check-In "
-        android:id="@+id/CheckInButton"
         android:enabled="true"
         android:background="#ff9900"
         android:layout_marginLeft="5dp"
@@ -83,6 +83,24 @@
         android:id="@+id/addressTextView"
         android:layout_below="@+id/showHeatMapButton"
         android:layout_alignStart="@+id/textView" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View all Locations"
+        android:id="@+id/buttonViewAllLocations"
+        android:layout_alignTop="@+id/addressTextView"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Clear all entries"
+        android:id="@+id/buttonClear"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/CheckInButton" />
 
 
 </RelativeLayout>

@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,7 +45,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-public class MapsActivity extends Activity implements GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener, OnMapReadyCallback, LocationListener {
+public class MapsActivity extends Activity implements GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener, OnMapReadyCallback, LocationListener {
 
 //    final static int GET_LOCATION = 1;
     private GoogleMap mMap;
@@ -52,13 +54,19 @@ public class MapsActivity extends Activity implements GoogleApiClient.Connection
     TextView longitudeTV;
     TextView latitudeTV;
     TextView addressTV;
+    Button BtnCheckIn;
+    Button BtnViewAllLocations;
+    Button BtnClearEntries;
 
     boolean locationEnabled;
     Thread checkGPSStatus;
 
+    DatabaseHandler dbHandler;
+
 
     LocationManager locManager;
     Location myLoc;
+    Location myLastlocation;
 
     Geocoder geocoder;
     GoogleApiClient mGoogleApiClient;
@@ -79,33 +87,62 @@ public class MapsActivity extends Activity implements GoogleApiClient.Connection
         longitudeTV = (TextView) findViewById(R.id.longitudeText);
         latitudeTV = (TextView) findViewById(R.id.latitudeText);
         addressTV = (TextView) findViewById(R.id.addressTextView);
+        BtnCheckIn = (Button) findViewById(R.id.CheckInButton);
+        BtnViewAllLocations = (Button) findViewById(R.id.buttonViewAllLocations);
+        BtnClearEntries = (Button) findViewById(R.id.buttonClear);
+
+        dbHandler = new DatabaseHandler(getApplicationContext(), null, null, 1);
 
         if (Geocoder.isPresent()) {
-            Log.e("LocatioNinja", "Geocoder Present");
             geocoder = new Geocoder(MapsActivity.this);
-        } else
-            Log.e("LocatioNinja", "Geocoder Not Present");
+        }
 
-        runOnUiThread(new Runnable() {
+        BtnViewAllLocations.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run() {
-                if(!isGPSEnabled()&&!isNetworkEnabled()){
-                    showSettingsAlert();
+            public void onClick(View v) {
+                List<checkedInLocation> myLocations = dbHandler.getAllMyLocations();
+                if(myLocations.isEmpty())
+                {
+                    Log.e("LOCATIONINJA","LIST IS EMPTY");
+                }
+                else {
+                    for (int index = 0; index < dbHandler.getLocationsCount(); index++) {
+                        Log.e("LOCATIONINJA", String.valueOf(myLocations.get(index).getId())+ ", "+ myLocations.get(index).get_nameofplace() +
+                                " , " + myLocations.get(index).get_latitude() + " , " + myLocations.get(index).get_longitude());
+                    }
                 }
             }
         });
+
+        BtnClearEntries.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dbHandler.clearDatabase();
+            }
+        });
+
+
+//
+//        runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                if(!isGPSEnabled()&&!isNetworkEnabled()){
+//                    showSettingsAlert();
+//                }
+//            }
+//        });
     }
 
     private boolean isGPSEnabled()
     {
-        LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
-        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        locManager = (LocationManager) getBaseContext().getSystemService(LOCATION_SERVICE);
+        return locManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 
     private boolean isNetworkEnabled()
     {
-        LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
-        return locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        locManager = (LocationManager) getBaseContext().getSystemService(LOCATION_SERVICE);
+        return locManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
     }
 
     protected synchronized void buildGoogleApiClient() {
@@ -130,11 +167,40 @@ public class MapsActivity extends Activity implements GoogleApiClient.Connection
     public void onResume()
     {
         super.onResume();
-        if(!mGoogleApiClient.isConnected())
+        if(!mGoogleApiClient.isConnected() && isGPSEnabled() && isNetworkEnabled())
         {
             mGoogleApiClient.connect();
         }
+        else
+            BtnCheckIn.setEnabled(false);
 
+        BtnCheckIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showCheckingInAlert();
+                //Add the location to the SQLite Database
+//                checkedInLocation _checkedInLocation = new checkedInLocation(dbHandler.getLocationsCount(), "- ", String.valueOf(myLastlocation.getLatitude()),String.valueOf(myLastlocation.getLongitude()));
+//                dbHandler.createLocation(_checkedInLocation);
+            }
+        });
+    }
+
+    private void showCheckingInAlert() {
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(MapsActivity.this)
+                .setTitle("CHECKING IN")
+                .setMessage("Your present location will be checked in")
+                .setCancelable(false);
+
+
+        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                checkedInLocation _checkedInLocation = new checkedInLocation(dbHandler.getLocationsCount(), "- ", String.valueOf(myLastlocation.getLatitude()), String.valueOf(myLastlocation.getLongitude()));
+                dbHandler.createLocation(_checkedInLocation);
+            }
+        });
+
+        alertDialog.show();
     }
 
     /**
@@ -156,23 +222,7 @@ public class MapsActivity extends Activity implements GoogleApiClient.Connection
         //TODO:Check if location is enabled -- my checking if network or Gps are available
 
 //        myLoc = mMap.getMyLocation(); //Deprecated - doesn't return anything
-//
-//        locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-//
-//        if (checkCallingOrSelfPermission("android.permission.ACCESS_FINE_LOCATION") != PackageManager.PERMISSION_GRANTED)
-//            if (checkCallingOrSelfPermission("android.permission.ACCESS_COARSE_LOCATION") != PackageManager.PERMISSION_GRANTED) {
-//                //TODO: Update the code with request for permission, from user; to be done on runtime and save the state;
-//                return;
-//            }
-//
-//        if (locManager != null) {
-//            Criteria criteria = new Criteria();
-//            Log.e("locationNinja", "Checking for location");
-//            myLoc = locManager.getLastKnownLocation(locManager.getBestProvider(criteria, true));
-//        }
-//
 
-//
 //        mMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
 //            @Override
 //            public void onMyLocationChange(Location location) {
@@ -180,8 +230,6 @@ public class MapsActivity extends Activity implements GoogleApiClient.Connection
 //                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myPresentLoc, 20));
 //            }
 //        });
-
-
     }
 
     boolean mapupd = false;
@@ -217,7 +265,6 @@ public class MapsActivity extends Activity implements GoogleApiClient.Connection
             latitudeTV.setText(String.valueOf(location.getLatitude()));
 
             updateAddress(location);
-
         }
         else{
             Toast.makeText(this, "Location not available", Toast.LENGTH_SHORT).show();
@@ -246,13 +293,13 @@ public class MapsActivity extends Activity implements GoogleApiClient.Connection
             if (getAddresses != null) {
                 for (int i = 0; i < getAddresses.size(); i++) {
                     Log.e("LocationNinja", getAddresses.get(i).toString());
-                    String addString = getAddresses.get(0).getAddressLine(0) + "\n" + getAddresses.get(0).getAddressLine(1) + "\n" + getAddresses.get(0).getAddressLine(2);
+                    String addString = getAddresses.get(0).getAddressLine(0) + "\n" + getAddresses.get(0).getAddressLine(1) + "\n" +
+                            getAddresses.get(0).getAddressLine(2);
                     addressTV.setText(addString);
                 }
             }
 //            ---------------------------------------------------------------------------------------------------------------------------------------
         }
-
     }
 
     @Override
@@ -270,7 +317,7 @@ public class MapsActivity extends Activity implements GoogleApiClient.Connection
 
     }
 
-    Location myLastlocation;
+
     @Override
     public void onConnected(Bundle bundle) {
 
@@ -281,10 +328,10 @@ public class MapsActivity extends Activity implements GoogleApiClient.Connection
             Toast.makeText(this, "Latitude: " +myLastlocation.getLatitude() +" , " + "Longitude: "+myLastlocation.getLongitude(), Toast.LENGTH_SHORT).show();
             updateMarker(myLastlocation);
         }
-        else{
-            //request location updates
-
-        }
+//        else{
+//            //request location updates
+//
+//        }
     }
 
     @Override
@@ -303,10 +350,10 @@ public class MapsActivity extends Activity implements GoogleApiClient.Connection
     public void showSettingsAlert() {
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(MapsActivity.this)
                                             .setTitle("GPS SETTINGS")
-                                            .setMessage("GPS not enabled; Enable it now in the settings menu.")
-                                            .setCancelable(false);
+                                            .setMessage("GPS not enabled; Enable it now in the settings menu.");
 
-        alertDialog.setNeutralButton("Settings", new DialogInterface.OnClickListener() {
+
+        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
@@ -314,15 +361,13 @@ public class MapsActivity extends Activity implements GoogleApiClient.Connection
             }
         });
 
-        alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+        alertDialog.setNegativeButton("Change settings later", new DialogInterface.OnClickListener() {
             @Override
-            public void onCancel(DialogInterface dialog) {
-                if(!isGPSEnabled()&&!isNetworkEnabled())
-                {
-                    alertDialog.show();
-                }
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(MapsActivity.this, "Oopsie! ALL FUNCTIONALITIES WILL NOT BE AVAILABLE!", Toast.LENGTH_LONG).show();
             }
         });
+
         alertDialog.show();
     }
 
@@ -333,34 +378,18 @@ public class MapsActivity extends Activity implements GoogleApiClient.Connection
         {
                 if(isGPSEnabled()&&isNetworkEnabled()) {
 
+                    BtnCheckIn.setEnabled(true);
                     mGoogleApiClient.connect();
-                }
-                else
-                {
-                    showSettingsAlert();
+
                 }
         }
     }
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent _intent)
-//    {
-//        Bundle bundle;
-//        if(requestCode == 1)
-//        {
-//            if(resultCode == RESULT_OK)
-//            {
-//                bundle = _intent.getExtras();
-//                myLoc = (Location)bundle.get("LOCATION");
-//
-//                longitudeTV.setText(String.valueOf(myLoc.getLongitude()));
-//                latitudeTV.setText(String.valueOf(myLoc.getLatitude()));
-//            }
-//        }
-//    }
-
-
-
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+    }
 
 }
 
