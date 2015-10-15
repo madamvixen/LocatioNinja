@@ -2,12 +2,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-<fragment
-    android:layout_width="match_parent"
-    android:layout_height="300dp"
-    android:id="@+id/map"
-    android:name="com.google.android.gms.maps.MapFragment"
-    android:layout_margin="5dp" />
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp" />
 
     <Button
         android:id="@+id/CheckInButton"
@@ -82,25 +84,41 @@
         android:text="Address:"
         android:id="@+id/addressTextView"
         android:layout_below="@+id/showHeatMapButton"
-        android:layout_alignStart="@+id/textView" />
+        android:layout_alignStart="@+id/textView"
+        android:background="#999999" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="View all Locations"
+        android:layout_height="30dp"
+        android:text="View Check-ins"
         android:id="@+id/buttonViewAllLocations"
-        android:layout_alignTop="@+id/addressTextView"
-        android:layout_alignParentEnd="true" />
+        android:background="#ff9900"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/mapZoomControls" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Clear all entries"
+        android:layout_height="30dp"
+        android:text="Clear List"
         android:id="@+id/buttonClear"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/CheckInButton" />
+        android:enabled="true"
+        android:background="#ff9900"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_alignTop="@+id/buttonViewAllLocations"
+        android:layout_alignEnd="@+id/CheckInButton" />
+
+    <ZoomControls
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/mapZoomControls"
+        android:layout_alignBottom="@+id/map"
+        android:layout_alignParentStart="true"
+        android:clickable="true" />
 
 
 </RelativeLayout>

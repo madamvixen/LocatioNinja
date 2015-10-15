@@ -1,5 +1,7 @@
 package com.mobileapp.rutgers.locationinja;
 
+import com.google.android.gms.maps.model.LatLng;
+
 /**
  * Created by Malabika on 10/10/2015.
  */
@@ -7,6 +9,7 @@ public class checkedInLocation {
 
     private int _id;
     private String _nameofplace, _latitude, _longitude;
+//    private String _latlngentries;
 
     public checkedInLocation(int id, String nameofplace, String latitude, String longitude){
         _id = id;

@@ -2,7 +2,11 @@
 <project version="4">
   <component name="AndroidLayouts">
     <shared>
-      <config />
+      <config>
+        <devices>
+          <device id="Nexus 5" />
+        </devices>
+      </config>
     </shared>
     <layouts>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_maps.xml">
@@ -19,15 +23,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dc5e1945-30cc-454e-afea-ec089dff2b8d" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/DatabaseHandler.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/checkedInLocation.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/locationlist.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/cache.properties.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/fileSnapshots.bin" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/outputFileStates.bin" afterPath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/outputFileStates.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/2.4/taskArtifacts/taskArtifacts.bin" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/MapsActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/MapsActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/MyLocationGetter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/MyLocationGetter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_maps.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_maps.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" afterPath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/checkedInLocation.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/checkedInLocation.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/local.properties" afterPath="$PROJECT_DIR$/local.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_annotations_23_0_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_annotations_23_0_1.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="LocatioNinja.iws" />
@@ -56,38 +67,38 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="MapsActivity.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MapsActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/MapsActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6414763">
-              <caret line="200" column="11" selection-start-line="200" selection-start-column="11" selection-end-line="200" selection-end-column="11" />
+            <state vertical-scroll-proportion="-1.7567568">
+              <caret line="278" column="97" selection-start-line="278" selection-start-column="97" selection-end-line="278" selection-end-column="97" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#3450#4213#0" expanded="true" />
-                <element signature="e#4212#4213#0" expanded="true" />
-                <element signature="e#4260#4419#0" expanded="true" />
-                <element signature="e#4418#4419#0" expanded="true" />
-                <element signature="e#6115#6601#0" expanded="true" />
-                <element signature="e#6600#6601#0" expanded="true" />
-                <element signature="e#6941#7365#0" expanded="true" />
-                <element signature="e#7364#7365#0" expanded="true" />
-                <element signature="e#13231#13540#0" expanded="true" />
-                <element signature="e#13539#13540#0" expanded="true" />
-                <element signature="e#13607#13892#0" expanded="true" />
-                <element signature="e#13891#13892#0" expanded="true" />
-                <element signature="e#14309#14310#0" expanded="true" />
-                <element signature="e#14339#14340#0" expanded="true" />
+                <element signature="e#4117#4365#0" expanded="true" />
+                <element signature="e#4364#4365#0" expanded="true" />
+                <element signature="e#4412#4571#0" expanded="true" />
+                <element signature="e#4570#4571#0" expanded="true" />
+                <element signature="e#5010#5217#0" expanded="true" />
+                <element signature="e#5216#5217#0" expanded="true" />
+                <element signature="e#6533#6741#0" expanded="true" />
+                <element signature="e#6740#6741#0" expanded="true" />
+                <element signature="e#7544#7999#0" expanded="true" />
+                <element signature="e#7998#7999#0" expanded="true" />
+                <element signature="e#9512#9725#0" expanded="true" />
+                <element signature="e#9724#9725#0" expanded="true" />
+                <element signature="e#10272#10773#0" expanded="true" />
+                <element signature="e#10772#10773#0" expanded="true" />
+                <element signature="e#12235#13255#0" expanded="true" />
+                <element signature="e#13254#13255#0" expanded="true" />
+                <element signature="e#13307#13658#0" expanded="true" />
+                <element signature="e#13657#13658#0" expanded="true" />
+                <element signature="e#13754#13933#0" expanded="true" />
+                <element signature="e#13932#13933#0" expanded="true" />
+                <element signature="e#13986#14166#0" expanded="true" />
+                <element signature="e#14165#14166#0" expanded="true" />
+                <element signature="e#14235#14381#0" expanded="true" />
+                <element signature="e#14380#14381#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="checkedInLocation.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/checkedInLocation.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="23" column="81" selection-start-line="23" selection-start-column="81" selection-end-line="23" selection-end-column="81" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -96,23 +107,55 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/DatabaseHandler.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="54" column="46" selection-start-line="54" selection-start-column="46" selection-end-line="54" selection-end-column="46" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+              <caret line="75" column="0" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MyLocationGetter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/MyLocationGetter.java">
+      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="75" column="32" selection-start-line="75" selection-start-column="32" selection-end-line="75" selection-end-column="32" />
+              <caret line="23" column="34" selection-start-line="23" selection-start-column="34" selection-end-line="23" selection-end-column="34" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="locationlist.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/locationlist.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-5.0285716">
+              <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="checkedInLocation.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/checkedInLocation.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="17" column="31" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MyLocationGetter.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/MyLocationGetter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.52196836">
+              <caret line="150" column="0" selection-start-line="150" selection-start-column="0" selection-end-line="150" selection-end-column="0" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1785#1786#0" expanded="true" />
-                <element signature="e#1812#1813#0" expanded="true" />
+                <element signature="e#2358#2359#0" expanded="true" />
+                <element signature="e#2385#2386#0" expanded="true" />
+                <element signature="e#4435#5209#0" expanded="true" />
+                <element signature="e#5208#5209#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -120,14 +163,14 @@
       </file>
       <file leaf-file-name="activity_maps.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_maps.xml">
-          <provider selected="true" editor-type-id="android-designer">
-            <state />
-          </provider>
           <provider editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="86" column="4" selection-start-line="86" selection-start-column="4" selection-end-line="86" selection-end-column="4" />
+              <caret line="120" column="33" selection-start-line="120" selection-start-column="33" selection-end-line="120" selection-end-column="33" />
               <folding />
             </state>
+          </provider>
+          <provider selected="true" editor-type-id="android-designer">
+            <state />
           </provider>
         </entry>
       </file>
@@ -720,6 +763,11 @@
                 <option name="description" value="Prepare com.google.android.gms:play-services-wearable:8.1.0" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="prepareComGoogleAndroidGmsPlayServicesWearable810Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.google.maps.android:android-maps-utils:0.4" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareComGoogleMapsAndroidAndroidMapsUtils04Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
@@ -1367,6 +1415,11 @@
                 <option name="name" value="prepareComGoogleAndroidGmsPlayServicesWearable810Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
+                <option name="description" value="Prepare com.google.maps.android:android-maps-utils:0.4" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="prepareComGoogleMapsAndroidAndroidMapsUtils04Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
                 <option name="name" value="prepareDebugAndroidTestDependencies" />
               </ExternalTaskPojo>
@@ -1505,7 +1558,7 @@
     </option>
     <option name="modificationStamps">
       <map>
-        <entry key="C:\Users\Malabika\AndroidStudioProjects\LocatioNinja" value="4332276487438" />
+        <entry key="C:\Users\Malabika\AndroidStudioProjects\LocatioNinja" value="4333068526793" />
       </map>
     </option>
     <option name="projectBuildClasspath">
@@ -1685,6 +1738,7 @@
                             <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/com/android/tools/external/lombok/lombok-ast/0.2.3/lombok-ast-0.2.3.jar" />
                             <option value="$USER_HOME$/AppData/Local/Android/sdk/extras/android/m2repository/com/android/support/appcompat-v7/23.0.1/appcompat-v7-23.0.1.aar" />
                             <option value="$USER_HOME$/AppData/Local/Android/sdk/extras/google/m2repository/com/google/android/gms/play-services/8.1.0/play-services-8.1.0.aar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.maps.android/android-maps-utils/0.4/9c0cd13c3beb2e2f385426f0e767123bae449ac4/android-maps-utils-0.4.aar" />
                             <option value="$USER_HOME$/AppData/Local/Android/sdk/extras/android/m2repository/com/android/support/support-v4/23.0.1/support-v4-23.0.1.aar" />
                             <option value="$USER_HOME$/AppData/Local/Android/sdk/extras/google/m2repository/com/google/android/gms/play-services-ads/8.1.0/play-services-ads-8.1.0.aar" />
                             <option value="$USER_HOME$/AppData/Local/Android/sdk/extras/google/m2repository/com/google/android/gms/play-services-analytics/8.1.0/play-services-analytics-8.1.0.aar" />
@@ -1850,18 +1904,20 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/app/src/debug/res/values/google_maps_api.xml" />
-        <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/LocationActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/LaunchActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/DatabaseHandler.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_launch.xml" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/LaunchActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/MyLocationGetter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_maps.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/checkedInLocation.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/DatabaseHandler.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_maps.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/locationlist.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/HeatmapTileProvider.java" />
+        <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/MapsActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/MyLocationGetter.java" />
       </list>
     </option>
   </component>
@@ -1881,8 +1937,27 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-9" />
     <option name="y" value="-9" />
-    <option name="width" value="1932" />
+    <option name="width" value="1938" />
     <option name="height" value="1046" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>Android</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>ResourceType</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -1895,7 +1970,7 @@
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="AndroidView" proportions="" version="1">
+    <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -1907,8 +1982,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="ProjectPane" />
-      <pane id="PackagesPane" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -1930,97 +2003,116 @@
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
             </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="values" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
+              <option name="myItemId" value="LocatioNinja" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="LocatioNinja" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+              <option name="myItemId" value="LocatioNinja" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="LocatioNinja" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LocatioNinja" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="layout" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="LocatioNinja" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LocatioNinja" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LocatioNinja" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LocatioNinja" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LocatioNinja" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LocatioNinja" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LocatioNinja" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="locationinja" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LocatioNinja" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="manifests" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidManifestsGroupNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2051,13 +2143,17 @@
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="682" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
-    <property name="android.project.structure.last.selected" value="SDK Location" />
+    <property name="android.project.structure.last.selected" value="app" />
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/Users/Malabika/AndroidStudioProjects/LocatioNinja/app/src/main/java/com/mobileapp/rutgers/locationinja/MyLocationGetter.java" />
   </component>
   <component name="RecentsManager">
     <key name="android.template.packageName">
       <recent name="com.mobileapp.rutgers.locationinja" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Malabika\AndroidStudioProjects\LocatioNinja\app\src\main\java" />
+      <recent name="C:\Users\Malabika\AndroidStudioProjects\LocatioNinja\app\src\main\java\com\mobileapp\rutgers\locationinja" />
     </key>
     <key name="android.template.parentActivityClass">
       <recent name="" />
@@ -2315,29 +2411,36 @@
       <option name="project" value="LOCAL" />
       <updated>1444506319775</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="-- Added the SQLite database helper and Database for the Checked-In Locations. Displaying the locations in the Log-Cat. TODO: add display activity for the checked in locations.">
+      <created>1444625610304</created>
+      <option name="number" value="00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1444625610304</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="1932" height="1046" extended-state="0" />
+    <frame x="-9" y="-9" width="1938" height="1046" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32918552" sideWeight="0.49356914" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32918552" sideWeight="0.46141478" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.270362" sideWeight="0.31666666" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.329582" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Monitor" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3178733" sideWeight="0.68333334" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19784947" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3178733" sideWeight="0.6457663" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19721329" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24321267" sideWeight="0.4892819" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32918552" sideWeight="0.49784946" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32918552" sideWeight="0.49356914" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3178733" sideWeight="0.31666666" order="14" side_tool="true" content_ui="tabs" />
+      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3178733" sideWeight="0.35423365" order="14" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1688172" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19882101" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32918552" sideWeight="0.49785638" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -2350,7 +2453,6 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32921347" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -2375,68 +2477,54 @@
     <MESSAGE value="--Added the GoogleAPiClient builder, using that to get present location adn updating maps" />
     <MESSAGE value="--add GPS settings check in Oncreate ; todo: resume activity on mapready after receiving acknowledgement from location settings page" />
     <MESSAGE value="--added check for the settings in Onresue=me - yet to test" />
-    <option name="LAST_COMMIT_MESSAGE" value="--added check for the settings in Onresue=me - yet to test" />
+    <MESSAGE value="-- Added the SQLite database helper and Database for the Checked-In Locations. Displaying the locations in the Log-Cat. TODO: add display activity for the checked in locations." />
+    <option name="LAST_COMMIT_MESSAGE" value="-- Added the SQLite database helper and Database for the Checked-In Locations. Displaying the locations in the Log-Cat. TODO: add display activity for the checked in locations." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/MapsActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/checkedInLocation.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#3450#4213#0" expanded="true" />
-            <element signature="e#4212#4213#0" expanded="true" />
-            <element signature="e#4260#4419#0" expanded="true" />
-            <element signature="e#4418#4419#0" expanded="true" />
-            <element signature="e#6115#6601#0" expanded="true" />
-            <element signature="e#6600#6601#0" expanded="true" />
-            <element signature="e#6941#7365#0" expanded="true" />
-            <element signature="e#7364#7365#0" expanded="true" />
-            <element signature="e#13231#13540#0" expanded="true" />
-            <element signature="e#13539#13540#0" expanded="true" />
-            <element signature="e#13607#13892#0" expanded="true" />
-            <element signature="e#13891#13892#0" expanded="true" />
-            <element signature="e#14309#14310#0" expanded="true" />
-            <element signature="e#14339#14340#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/LaunchActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="27" column="42" selection-start-line="27" selection-start-column="42" selection-end-line="27" selection-end-column="42" />
-          <folding>
-            <element signature="e#604#1072#0" expanded="true" />
-            <element signature="e#1071#1072#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_launch.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="15" column="43" selection-start-line="15" selection-start-column="43" selection-end-line="15" selection-end-column="43" />
+          <caret line="14" column="17" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/DatabaseHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="67" column="73" selection-start-line="67" selection-start-column="73" selection-end-line="67" selection-end-column="73" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/MyLocationGetter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="43" column="73" selection-start-line="43" selection-start-column="73" selection-end-line="43" selection-end-column="73" />
+          <folding>
+            <element signature="e#2358#2359#0" expanded="true" />
+            <element signature="e#2385#2386#0" expanded="true" />
+            <element signature="e#4435#5209#0" expanded="true" />
+            <element signature="e#5208#5209#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_maps.xml">
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="16" column="30" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/MapsActivity.java">
@@ -2445,55 +2533,74 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3450#4213#0" expanded="true" />
-            <element signature="e#4212#4213#0" expanded="true" />
-            <element signature="e#4260#4419#0" expanded="true" />
-            <element signature="e#4418#4419#0" expanded="true" />
-            <element signature="e#6115#6601#0" expanded="true" />
-            <element signature="e#6600#6601#0" expanded="true" />
-            <element signature="e#6941#7365#0" expanded="true" />
-            <element signature="e#7364#7365#0" expanded="true" />
-            <element signature="e#13231#13540#0" expanded="true" />
-            <element signature="e#13539#13540#0" expanded="true" />
-            <element signature="e#13607#13892#0" expanded="true" />
-            <element signature="e#13891#13892#0" expanded="true" />
-            <element signature="e#14309#14310#0" expanded="true" />
-            <element signature="e#14339#14340#0" expanded="true" />
+            <element signature="e#4117#4365#0" expanded="true" />
+            <element signature="e#4364#4365#0" expanded="true" />
+            <element signature="e#4412#4571#0" expanded="true" />
+            <element signature="e#4570#4571#0" expanded="true" />
+            <element signature="e#5010#5217#0" expanded="true" />
+            <element signature="e#5216#5217#0" expanded="true" />
+            <element signature="e#6533#6741#0" expanded="true" />
+            <element signature="e#6740#6741#0" expanded="true" />
+            <element signature="e#7544#7999#0" expanded="true" />
+            <element signature="e#7998#7999#0" expanded="true" />
+            <element signature="e#9512#9725#0" expanded="true" />
+            <element signature="e#9724#9725#0" expanded="true" />
+            <element signature="e#10272#10773#0" expanded="true" />
+            <element signature="e#10772#10773#0" expanded="true" />
+            <element signature="e#12235#13255#0" expanded="true" />
+            <element signature="e#13254#13255#0" expanded="true" />
+            <element signature="e#13307#13658#0" expanded="true" />
+            <element signature="e#13657#13658#0" expanded="true" />
+            <element signature="e#13754#13933#0" expanded="true" />
+            <element signature="e#13932#13933#0" expanded="true" />
+            <element signature="e#13986#14166#0" expanded="true" />
+            <element signature="e#14165#14166#0" expanded="true" />
+            <element signature="e#14235#14381#0" expanded="true" />
+            <element signature="e#14380#14381#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/LaunchActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/checkedInLocation.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="27" column="42" selection-start-line="27" selection-start-column="42" selection-end-line="27" selection-end-column="42" />
-          <folding>
-            <element signature="e#604#1072#0" expanded="true" />
-            <element signature="e#1071#1072#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_launch.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="15" column="43" selection-start-line="15" selection-start-column="43" selection-end-line="15" selection-end-column="43" />
+          <caret line="23" column="81" selection-start-line="23" selection-start-column="81" selection-end-line="23" selection-end-column="81" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/DatabaseHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="54" column="46" selection-start-line="54" selection-start-column="46" selection-end-line="54" selection-end-column="46" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/MyLocationGetter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="75" column="32" selection-start-line="75" selection-start-column="32" selection-end-line="75" selection-end-column="32" />
+          <folding>
+            <element signature="e#2358#2359#0" expanded="true" />
+            <element signature="e#2385#2386#0" expanded="true" />
+            <element signature="e#4435#5209#0" expanded="true" />
+            <element signature="e#5208#5209#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_maps.xml">
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="16" column="30" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
+          <caret line="86" column="4" selection-start-line="86" selection-start-column="4" selection-end-line="86" selection-end-column="4" />
           <folding />
         </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/MapsActivity.java">
@@ -2502,55 +2609,74 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3450#4213#0" expanded="true" />
-            <element signature="e#4212#4213#0" expanded="true" />
-            <element signature="e#4260#4419#0" expanded="true" />
-            <element signature="e#4418#4419#0" expanded="true" />
-            <element signature="e#6115#6601#0" expanded="true" />
-            <element signature="e#6600#6601#0" expanded="true" />
-            <element signature="e#6941#7365#0" expanded="true" />
-            <element signature="e#7364#7365#0" expanded="true" />
-            <element signature="e#13231#13540#0" expanded="true" />
-            <element signature="e#13539#13540#0" expanded="true" />
-            <element signature="e#13607#13892#0" expanded="true" />
-            <element signature="e#13891#13892#0" expanded="true" />
-            <element signature="e#14309#14310#0" expanded="true" />
-            <element signature="e#14339#14340#0" expanded="true" />
+            <element signature="e#4117#4365#0" expanded="true" />
+            <element signature="e#4364#4365#0" expanded="true" />
+            <element signature="e#4412#4571#0" expanded="true" />
+            <element signature="e#4570#4571#0" expanded="true" />
+            <element signature="e#5010#5217#0" expanded="true" />
+            <element signature="e#5216#5217#0" expanded="true" />
+            <element signature="e#6533#6741#0" expanded="true" />
+            <element signature="e#6740#6741#0" expanded="true" />
+            <element signature="e#7544#7999#0" expanded="true" />
+            <element signature="e#7998#7999#0" expanded="true" />
+            <element signature="e#9512#9725#0" expanded="true" />
+            <element signature="e#9724#9725#0" expanded="true" />
+            <element signature="e#10272#10773#0" expanded="true" />
+            <element signature="e#10772#10773#0" expanded="true" />
+            <element signature="e#12235#13255#0" expanded="true" />
+            <element signature="e#13254#13255#0" expanded="true" />
+            <element signature="e#13307#13658#0" expanded="true" />
+            <element signature="e#13657#13658#0" expanded="true" />
+            <element signature="e#13754#13933#0" expanded="true" />
+            <element signature="e#13932#13933#0" expanded="true" />
+            <element signature="e#13986#14166#0" expanded="true" />
+            <element signature="e#14165#14166#0" expanded="true" />
+            <element signature="e#14235#14381#0" expanded="true" />
+            <element signature="e#14380#14381#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/LaunchActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/checkedInLocation.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="27" column="42" selection-start-line="27" selection-start-column="42" selection-end-line="27" selection-end-column="42" />
-          <folding>
-            <element signature="e#604#1072#0" expanded="true" />
-            <element signature="e#1071#1072#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_launch.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="15" column="43" selection-start-line="15" selection-start-column="43" selection-end-line="15" selection-end-column="43" />
+          <caret line="23" column="81" selection-start-line="23" selection-start-column="81" selection-end-line="23" selection-end-column="81" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/DatabaseHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="54" column="46" selection-start-line="54" selection-start-column="46" selection-end-line="54" selection-end-column="46" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/MyLocationGetter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="75" column="32" selection-start-line="75" selection-start-column="32" selection-end-line="75" selection-end-column="32" />
+          <folding>
+            <element signature="e#2358#2359#0" expanded="true" />
+            <element signature="e#2385#2386#0" expanded="true" />
+            <element signature="e#4435#5209#0" expanded="true" />
+            <element signature="e#5208#5209#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_maps.xml">
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="16" column="30" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
+          <caret line="86" column="4" selection-start-line="86" selection-start-column="4" selection-end-line="86" selection-end-column="4" />
           <folding />
         </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/MapsActivity.java">
@@ -2559,20 +2685,30 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3450#4213#0" expanded="true" />
-            <element signature="e#4212#4213#0" expanded="true" />
-            <element signature="e#4260#4419#0" expanded="true" />
-            <element signature="e#4418#4419#0" expanded="true" />
-            <element signature="e#6115#6601#0" expanded="true" />
-            <element signature="e#6600#6601#0" expanded="true" />
-            <element signature="e#6941#7365#0" expanded="true" />
-            <element signature="e#7364#7365#0" expanded="true" />
-            <element signature="e#13231#13540#0" expanded="true" />
-            <element signature="e#13539#13540#0" expanded="true" />
-            <element signature="e#13607#13892#0" expanded="true" />
-            <element signature="e#13891#13892#0" expanded="true" />
-            <element signature="e#14309#14310#0" expanded="true" />
-            <element signature="e#14339#14340#0" expanded="true" />
+            <element signature="e#4117#4365#0" expanded="true" />
+            <element signature="e#4364#4365#0" expanded="true" />
+            <element signature="e#4412#4571#0" expanded="true" />
+            <element signature="e#4570#4571#0" expanded="true" />
+            <element signature="e#5010#5217#0" expanded="true" />
+            <element signature="e#5216#5217#0" expanded="true" />
+            <element signature="e#6533#6741#0" expanded="true" />
+            <element signature="e#6740#6741#0" expanded="true" />
+            <element signature="e#7544#7999#0" expanded="true" />
+            <element signature="e#7998#7999#0" expanded="true" />
+            <element signature="e#9512#9725#0" expanded="true" />
+            <element signature="e#9724#9725#0" expanded="true" />
+            <element signature="e#10272#10773#0" expanded="true" />
+            <element signature="e#10772#10773#0" expanded="true" />
+            <element signature="e#12235#13255#0" expanded="true" />
+            <element signature="e#13254#13255#0" expanded="true" />
+            <element signature="e#13307#13658#0" expanded="true" />
+            <element signature="e#13657#13658#0" expanded="true" />
+            <element signature="e#13754#13933#0" expanded="true" />
+            <element signature="e#13932#13933#0" expanded="true" />
+            <element signature="e#13986#14166#0" expanded="true" />
+            <element signature="e#14165#14166#0" expanded="true" />
+            <element signature="e#14235#14381#0" expanded="true" />
+            <element signature="e#14380#14381#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2581,33 +2717,218 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="27" column="42" selection-start-line="27" selection-start-column="42" selection-end-line="27" selection-end-column="42" />
-          <folding>
-            <element signature="e#604#1072#0" expanded="true" />
-            <element signature="e#1071#1072#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_launch.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="15" column="43" selection-start-line="15" selection-start-column="43" selection-end-line="15" selection-end-column="43" />
           <folding />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_maps.xml">
-      <provider selected="true" editor-type-id="android-designer">
+      <provider editor-type-id="android-designer">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_maps.xml">
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="16" column="30" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
           <folding />
         </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/MapsActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#4117#4365#0" expanded="true" />
+            <element signature="e#4364#4365#0" expanded="true" />
+            <element signature="e#4412#4571#0" expanded="true" />
+            <element signature="e#4570#4571#0" expanded="true" />
+            <element signature="e#5010#5217#0" expanded="true" />
+            <element signature="e#5216#5217#0" expanded="true" />
+            <element signature="e#6533#6741#0" expanded="true" />
+            <element signature="e#6740#6741#0" expanded="true" />
+            <element signature="e#7544#7999#0" expanded="true" />
+            <element signature="e#7998#7999#0" expanded="true" />
+            <element signature="e#9512#9725#0" expanded="true" />
+            <element signature="e#9724#9725#0" expanded="true" />
+            <element signature="e#10272#10773#0" expanded="true" />
+            <element signature="e#10772#10773#0" expanded="true" />
+            <element signature="e#12235#13255#0" expanded="true" />
+            <element signature="e#13254#13255#0" expanded="true" />
+            <element signature="e#13307#13658#0" expanded="true" />
+            <element signature="e#13657#13658#0" expanded="true" />
+            <element signature="e#13754#13933#0" expanded="true" />
+            <element signature="e#13932#13933#0" expanded="true" />
+            <element signature="e#13986#14166#0" expanded="true" />
+            <element signature="e#14165#14166#0" expanded="true" />
+            <element signature="e#14235#14381#0" expanded="true" />
+            <element signature="e#14380#14381#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/LaunchActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="27" column="42" selection-start-line="27" selection-start-column="42" selection-end-line="27" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_launch.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="15" column="43" selection-start-line="15" selection-start-column="43" selection-end-line="15" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_maps.xml">
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="16" column="30" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/MapsActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#4117#4365#0" expanded="true" />
+            <element signature="e#4364#4365#0" expanded="true" />
+            <element signature="e#4412#4571#0" expanded="true" />
+            <element signature="e#4570#4571#0" expanded="true" />
+            <element signature="e#5010#5217#0" expanded="true" />
+            <element signature="e#5216#5217#0" expanded="true" />
+            <element signature="e#6533#6741#0" expanded="true" />
+            <element signature="e#6740#6741#0" expanded="true" />
+            <element signature="e#7544#7999#0" expanded="true" />
+            <element signature="e#7998#7999#0" expanded="true" />
+            <element signature="e#9512#9725#0" expanded="true" />
+            <element signature="e#9724#9725#0" expanded="true" />
+            <element signature="e#10272#10773#0" expanded="true" />
+            <element signature="e#10772#10773#0" expanded="true" />
+            <element signature="e#12235#13255#0" expanded="true" />
+            <element signature="e#13254#13255#0" expanded="true" />
+            <element signature="e#13307#13658#0" expanded="true" />
+            <element signature="e#13657#13658#0" expanded="true" />
+            <element signature="e#13754#13933#0" expanded="true" />
+            <element signature="e#13932#13933#0" expanded="true" />
+            <element signature="e#13986#14166#0" expanded="true" />
+            <element signature="e#14165#14166#0" expanded="true" />
+            <element signature="e#14235#14381#0" expanded="true" />
+            <element signature="e#14380#14381#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/LaunchActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="27" column="42" selection-start-line="27" selection-start-column="42" selection-end-line="27" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_launch.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="15" column="43" selection-start-line="15" selection-start-column="43" selection-end-line="15" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_maps.xml">
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="16" column="30" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/MapsActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#4117#4365#0" expanded="true" />
+            <element signature="e#4364#4365#0" expanded="true" />
+            <element signature="e#4412#4571#0" expanded="true" />
+            <element signature="e#4570#4571#0" expanded="true" />
+            <element signature="e#5010#5217#0" expanded="true" />
+            <element signature="e#5216#5217#0" expanded="true" />
+            <element signature="e#6533#6741#0" expanded="true" />
+            <element signature="e#6740#6741#0" expanded="true" />
+            <element signature="e#7544#7999#0" expanded="true" />
+            <element signature="e#7998#7999#0" expanded="true" />
+            <element signature="e#9512#9725#0" expanded="true" />
+            <element signature="e#9724#9725#0" expanded="true" />
+            <element signature="e#10272#10773#0" expanded="true" />
+            <element signature="e#10772#10773#0" expanded="true" />
+            <element signature="e#12235#13255#0" expanded="true" />
+            <element signature="e#13254#13255#0" expanded="true" />
+            <element signature="e#13307#13658#0" expanded="true" />
+            <element signature="e#13657#13658#0" expanded="true" />
+            <element signature="e#13754#13933#0" expanded="true" />
+            <element signature="e#13932#13933#0" expanded="true" />
+            <element signature="e#13986#14166#0" expanded="true" />
+            <element signature="e#14165#14166#0" expanded="true" />
+            <element signature="e#14235#14381#0" expanded="true" />
+            <element signature="e#14380#14381#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/LaunchActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="27" column="42" selection-start-line="27" selection-start-column="42" selection-end-line="27" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_launch.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="15" column="43" selection-start-line="15" selection-start-column="43" selection-end-line="15" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_maps.xml">
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="16" column="30" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
@@ -2615,13 +2936,6 @@
         <state vertical-scroll-proportion="0.122137405">
           <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="10" column="21" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
         </state>
       </provider>
     </entry>
@@ -2654,17 +2968,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_launch.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="15" column="43" selection-start-line="15" selection-start-column="43" selection-end-line="15" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/debug/res/values/google_maps_api.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2673,60 +2976,82 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+    <entry file="jar://$USER_HOME$/AppData/Local/Android/sdk/platforms/android-23/android.jar!/android/database/sqlite/SQLiteOpenHelper.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35229358">
-          <caret line="12" column="75" selection-start-line="12" selection-start-column="75" selection-end-line="12" selection-end-column="75" />
-          <folding />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/LaunchActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-          <folding>
-            <element signature="e#604#1072#0" expanded="true" />
-            <element signature="e#1071#1072#0" expanded="true" />
-          </folding>
+          <caret line="27" column="52" selection-start-line="27" selection-start-column="52" selection-end-line="27" selection-end-column="52" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/MyLocationGetter.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_launch.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="75" column="32" selection-start-line="75" selection-start-column="32" selection-end-line="75" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1785#1786#0" expanded="true" />
-            <element signature="e#1812#1813#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.5692884">
+          <caret line="19" column="31" selection-start-line="19" selection-start-column="31" selection-end-line="19" selection-end-column="31" />
+          <folding />
         </state>
       </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
     </entry>
-    <entry file="jar://$USER_HOME$/AppData/Local/Android/sdk/platforms/android-23/android.jar!/android/database/sqlite/SQLiteOpenHelper.class">
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.52196836">
+          <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_maps.xml">
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="120" column="33" selection-start-line="120" selection-start-column="33" selection-end-line="120" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
       <provider selected="true" editor-type-id="android-designer">
         <state />
       </provider>
-      <provider editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="86" column="4" selection-start-line="86" selection-start-column="4" selection-end-line="86" selection-end-column="4" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/locationlist.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.0285716">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.36555362">
+          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/checkedInLocation.java">
+    <entry file="file://$PROJECT_DIR$/app/libs/android-maps-utils/library/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="23" column="81" selection-start-line="23" selection-start-column="81" selection-end-line="23" selection-end-column="81" />
+          <caret line="15" column="33" selection-start-line="15" selection-start-column="33" selection-end-line="15" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="23" column="34" selection-start-line="23" selection-start-column="34" selection-end-line="23" selection-end-column="34" />
           <folding />
         </state>
       </provider>
@@ -2734,33 +3059,62 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/DatabaseHandler.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="54" column="46" selection-start-line="54" selection-start-column="46" selection-end-line="54" selection-end-column="46" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <caret line="75" column="0" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/checkedInLocation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="17" column="31" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/MapsActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6414763">
-          <caret line="200" column="11" selection-start-line="200" selection-start-column="11" selection-end-line="200" selection-end-column="11" />
+        <state vertical-scroll-proportion="-1.7567568">
+          <caret line="278" column="97" selection-start-line="278" selection-start-column="97" selection-end-line="278" selection-end-column="97" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3450#4213#0" expanded="true" />
-            <element signature="e#4212#4213#0" expanded="true" />
-            <element signature="e#4260#4419#0" expanded="true" />
-            <element signature="e#4418#4419#0" expanded="true" />
-            <element signature="e#6115#6601#0" expanded="true" />
-            <element signature="e#6600#6601#0" expanded="true" />
-            <element signature="e#6941#7365#0" expanded="true" />
-            <element signature="e#7364#7365#0" expanded="true" />
-            <element signature="e#13231#13540#0" expanded="true" />
-            <element signature="e#13539#13540#0" expanded="true" />
-            <element signature="e#13607#13892#0" expanded="true" />
-            <element signature="e#13891#13892#0" expanded="true" />
-            <element signature="e#14309#14310#0" expanded="true" />
-            <element signature="e#14339#14340#0" expanded="true" />
+            <element signature="e#4117#4365#0" expanded="true" />
+            <element signature="e#4364#4365#0" expanded="true" />
+            <element signature="e#4412#4571#0" expanded="true" />
+            <element signature="e#4570#4571#0" expanded="true" />
+            <element signature="e#5010#5217#0" expanded="true" />
+            <element signature="e#5216#5217#0" expanded="true" />
+            <element signature="e#6533#6741#0" expanded="true" />
+            <element signature="e#6740#6741#0" expanded="true" />
+            <element signature="e#7544#7999#0" expanded="true" />
+            <element signature="e#7998#7999#0" expanded="true" />
+            <element signature="e#9512#9725#0" expanded="true" />
+            <element signature="e#9724#9725#0" expanded="true" />
+            <element signature="e#10272#10773#0" expanded="true" />
+            <element signature="e#10772#10773#0" expanded="true" />
+            <element signature="e#12235#13255#0" expanded="true" />
+            <element signature="e#13254#13255#0" expanded="true" />
+            <element signature="e#13307#13658#0" expanded="true" />
+            <element signature="e#13657#13658#0" expanded="true" />
+            <element signature="e#13754#13933#0" expanded="true" />
+            <element signature="e#13932#13933#0" expanded="true" />
+            <element signature="e#13986#14166#0" expanded="true" />
+            <element signature="e#14165#14166#0" expanded="true" />
+            <element signature="e#14235#14381#0" expanded="true" />
+            <element signature="e#14380#14381#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mobileapp/rutgers/locationinja/MyLocationGetter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.52196836">
+          <caret line="150" column="0" selection-start-line="150" selection-start-column="0" selection-end-line="150" selection-end-column="0" />
+          <folding>
+            <element signature="e#2358#2359#0" expanded="true" />
+            <element signature="e#2385#2386#0" expanded="true" />
+            <element signature="e#4435#5209#0" expanded="true" />
+            <element signature="e#5208#5209#0" expanded="true" />
           </folding>
         </state>
       </provider>
