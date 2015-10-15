@@ -16,6 +16,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.provider.Settings;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -64,10 +66,12 @@ public class MapsActivity extends FragmentActivity implements GoogleApiClient.Co
     Button BtnCheckIn;
     Button BtnViewAllLocations;
     Button BtnClearEntries;
-    Button BtnViewHeatMap;
+    CheckBox BtnViewHeatMap;
     ZoomControls ControlMapZoom;
 
     DatabaseHandler dbHandler;
+    HMDatabaseHandler hmdbHandler;
+    List<checkedInLocation> myLocations;
     MyLocationGetter myLocationGetter;
 
     LocationManager locManager;
@@ -85,6 +89,9 @@ public class MapsActivity extends FragmentActivity implements GoogleApiClient.Co
         //Building the API client - for Location Services API
         this.buildGoogleApiClient();
 
+        //Start background task on obtaining locations for heatmaps
+//        new updateLocationTask().execute();
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -96,10 +103,15 @@ public class MapsActivity extends FragmentActivity implements GoogleApiClient.Co
         BtnCheckIn = (Button) findViewById(R.id.CheckInButton);
         BtnViewAllLocations = (Button) findViewById(R.id.buttonViewAllLocations);
         BtnClearEntries = (Button) findViewById(R.id.buttonClear);
-        BtnViewHeatMap = (Button) findViewById(R.id.showHeatMapButton);
+        BtnViewHeatMap = (CheckBox) findViewById(R.id.showHeatMapButton);
         ControlMapZoom = (ZoomControls) findViewById(R.id.mapZoomControls);
 
         dbHandler = new DatabaseHandler(getApplicationContext(), null, null, 1);
+
+        myLocations = dbHandler.getAllMyLocations();
+        showCheckIns(myLocations);
+
+        hmdbHandler = new HMDatabaseHandler(getApplicationContext(), null, null, 1);
 
         if (Geocoder.isPresent()) {
             geocoder = new Geocoder(MapsActivity.this);
@@ -108,7 +120,7 @@ public class MapsActivity extends FragmentActivity implements GoogleApiClient.Co
         BtnViewAllLocations.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<checkedInLocation> myLocations = dbHandler.getAllMyLocations();
+//                List<checkedInLocation> myLocations = dbHandler.getAllMyLocations();
                     showCheckIns(myLocations);
             }
         });
@@ -184,19 +196,19 @@ public class MapsActivity extends FragmentActivity implements GoogleApiClient.Co
                 Distances = intent.getStringArrayListExtra("distances");
                 myLastlocation = (Location) extras.get("newlocation");
                 updateMarker(myLastlocation);
-                Timer _timer = new Timer("check in");
-                final DatabaseHandler dbh = new DatabaseHandler(context, null, null, 1);
 
-                _timer.schedule(new TimerTask() {
+                //update the Database to generate heatmap
+                Timer _timer = new Timer("check in");
+                final HMDatabaseHandler dbh = new HMDatabaseHandler(context, null, null, 1);
+
+                _timer.scheduleAtFixedRate(new TimerTask() {
                     @Override
                     public void run() {
                         checkedInLocation _checkedInLocation = new checkedInLocation(dbh.getLocationsCount(), "LocatioNinja-autocheckin",
                                 String.valueOf(myLastlocation.getLatitude()), String.valueOf(myLastlocation.getLongitude()));
-                        dbh.createLocation(_checkedInLocation);
+                        dbh.createHMLocation(_checkedInLocation);
                     }
-                },1,300000);
-
-//
+                }, 10000, 300000);
             }
         }
     }
@@ -266,6 +278,7 @@ public class MapsActivity extends FragmentActivity implements GoogleApiClient.Co
                 checkedInLocation _checkedInLocation = new checkedInLocation(dbHandler.getLocationsCount(), tv.getText().toString(),
                         String.valueOf(myLastlocation.getLatitude()), String.valueOf(myLastlocation.getLongitude()));
                 dbHandler.createLocation(_checkedInLocation);
+                hmdbHandler.createHMLocation(_checkedInLocation);
                 dialog.dismiss();
             }
         });
@@ -354,24 +367,28 @@ public class MapsActivity extends FragmentActivity implements GoogleApiClient.Co
         BtnViewHeatMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addHeatMap();
+                if(BtnViewHeatMap.isChecked())
+                    addHeatMap();
             }
         });
     }
 
     private void addHeatMap() {
-        List<checkedInLocation> myLocations = dbHandler.getAllMyLocations();
+        List<checkedInLocation> _manualLocations = dbHandler.getAllMyLocations();
+        List<checkedInLocation> myLocations = hmdbHandler.getAllMyHMLocations();
+        myLocations.addAll(_manualLocations);
+
         Collection<LatLng> myCoordinates = new ArrayList<>();
 
-        for(int i = 0; i<myLocations.size();i++)
-        {
-            myCoordinates.add(new LatLng(Double.parseDouble(myLocations.get(i).get_latitude()),Double.parseDouble(myLocations.get(i).get_longitude())));
+        for(int i = 0; i<myLocations.size();i++) {
+            myCoordinates.add(new LatLng(Double.parseDouble(myLocations.get(i).get_latitude()), Double.parseDouble(myLocations.get(i).get_longitude())));
         }
 
 //      Create a heat map tile provider, passing it the latlngs of the police stations.
         HeatmapTileProvider provider = new HeatmapTileProvider.Builder().data(myCoordinates).build();
 //      Add a tile overlay to the map, using the heat map tile provider.
         mMap.addTileOverlay(new TileOverlayOptions().tileProvider(provider));
+
     }
 
     static boolean mapupd = false;

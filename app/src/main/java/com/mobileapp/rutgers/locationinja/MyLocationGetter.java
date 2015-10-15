@@ -70,6 +70,7 @@ public class MyLocationGetter extends IntentService implements GoogleApiClient.C
         super(String.valueOf(context));
         this.context = context;
         this.mGoogleApiClient = _mapiclient;
+        myLocManager = (LocationManager) context.getSystemService(LOCATION_SERVICE);
 
     }
 
@@ -175,7 +176,7 @@ public class MyLocationGetter extends IntentService implements GoogleApiClient.C
         urlString.append(",");
         urlString.append( Double.toString((double)dest.longitude));
         urlString.append("&mode=driving&sensor=true");
-        Log.e("LOcatioNinja","URL="+urlString.toString());
+//        Log.e("LOcatioNinja","URL="+urlString.toString());
 
         // get the JSON And parse it to get the directions data.
         HttpURLConnection urlConnection= null;
@@ -214,7 +215,6 @@ public class MyLocationGetter extends IntentService implements GoogleApiClient.C
         //Sortout JSONresponse
         JSONObject object = (JSONObject) new JSONTokener(response).nextValue();
         JSONArray array = object.getJSONArray("routes");
-        //Log.d("JSON","array: "+array.toString());
 
         //Routes is a combination of objects and arrays
         JSONObject routes = array.getJSONObject(0);
@@ -233,54 +233,8 @@ public class MyLocationGetter extends IntentService implements GoogleApiClient.C
         Log.e("LocatioNinja","distance: "+distance.toString());
 
         String sDistance = distance.getString("text");
-        Log.e("LocatioNinja","S_distance: "+sDistance);
         int iDistance = distance.getInt("value");
-        Log.e("LocatioNinja","i_distance: "+String.valueOf(iDistance));
         return sDistance;
     }
-
-
-
-//    static final double M_PI = Math.PI;
-//    private String getDistance(Location location, LatLng markerLatLng) {
-//        double _lat;
-//        double _long;
-//        double _mLat;
-//        double _mLong;
-//
-//        // Convert degrees to radians
-//        _lat = location.getLatitude() * M_PI / 180.0;
-//        _long = location.getLongitude() * M_PI / 180.0;
-//
-//        _mLat = markerLatLng.latitude * M_PI / 180.0;
-//        _mLong= markerLatLng.longitude * M_PI / 180.0;
-//
-//        // radius of earth in metres
-//        double r = 6378100;
-//
-//        // P
-//        double rho1 = r * Math.cos(_lat);
-//        double z1 = r * Math.sin(_lat);
-//        double x1 = rho1 * Math.cos(_long);
-//        double y1 = rho1 * Math.sin(_long);
-//
-//        // Q
-//        double rho2 = r * Math.cos(_mLat);
-//        double z2 = r * Math.sin(_mLat);
-//        double x2 = rho2 * Math.cos(_mLong);
-//        double y2 = rho2 * Math.sin(_mLong);
-//
-//        // Dot product
-//        double dot = (x1 * x2 + y1 * y2 + z1 * z2);
-//        double cos_theta = dot / (r * r);
-//
-//        double theta = Math.acos(cos_theta);
-//
-//        Log.e("CitizenV2V", "in get distance "+ String.valueOf(r*theta));
-//        // Return Distance in Miles
-//        float distance = (float) ((r * theta)*(0.000621371));
-//        return String.format("%.2f", distance);
-//    }
-
 
 }

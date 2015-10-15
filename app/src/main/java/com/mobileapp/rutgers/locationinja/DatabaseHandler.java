@@ -34,7 +34,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String CREATE_PRODUCTS_TABLE = "CREATE TABLE IF NOT EXISTS "+ TABLE_DOCS + "(" + KEY_ID +" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "+KEY_PLACENAME
                 + " TEXT NOT NULL," + KEY_LATITUDE + " TEXT NOT NULL UNIQUE," + KEY_LONGITUDE + " TEXT NOT NULL UNIQUE" + ")";
 
-        Log.e("DATABSE HELPER", "the query is: " + CREATE_PRODUCTS_TABLE);
+
+//        Log.e("DATABSE HELPER", "the query is: " + CREATE_PRODUCTS_TABLE);
         db.execSQL(CREATE_PRODUCTS_TABLE);
     }
 
@@ -46,15 +47,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public void createLocation(checkedInLocation _checkedInLocation ){
         SQLiteDatabase db = getWritableDatabase();
-        ContentValues values = new ContentValues();
 
+        ContentValues values = new ContentValues();
         values.put(KEY_PLACENAME,_checkedInLocation.get_nameofplace());
         values.put(KEY_LATITUDE, _checkedInLocation.get_latitude());
         values.put(KEY_LONGITUDE, _checkedInLocation.get_longitude());
 
-//        db.insert(TABLE_DOCS, null, values);
-        db.insert(TABLE_DOCS, null,values);
-        db.close();
+        db.insert(TABLE_DOCS, null, values);
+
+
     }
 
     public void clearDatabase()
@@ -77,7 +78,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         List<checkedInLocation> myLocationList = new ArrayList<>();
 
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM "+ TABLE_DOCS, null);
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_DOCS, null);
         if(cursor.moveToFirst())
         {
             do{
@@ -86,8 +87,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             }
             while(cursor.moveToNext());
         }
-
+        cursor.close();
         db.close();
         return myLocationList;
     }
+
 }
