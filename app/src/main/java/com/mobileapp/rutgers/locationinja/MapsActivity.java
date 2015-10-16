@@ -28,6 +28,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ZoomControls;
@@ -57,7 +58,7 @@ import java.util.TimerTask;
 public class MapsActivity extends FragmentActivity implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, OnMapReadyCallback, LocationListener {
 
-//    final static int GET_LOCATION = 1;
+    //    final static int GET_LOCATION = 1;
     private static GoogleMap mMap;
 
     static TextView longitudeTV;
@@ -66,6 +67,7 @@ public class MapsActivity extends FragmentActivity implements GoogleApiClient.Co
     Button BtnCheckIn;
     Button BtnViewAllLocations;
     Button BtnClearEntries;
+
     CheckBox BtnViewHeatMap;
     ZoomControls ControlMapZoom;
 
@@ -80,23 +82,22 @@ public class MapsActivity extends FragmentActivity implements GoogleApiClient.Co
     static Geocoder geocoder;
     GoogleApiClient mGoogleApiClient;
 
+    boolean isHeatMapEnabled = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-//        Log.e("LocaioNinja", "The thread id is: " + android.os.Process.getThreadPriority(android.os.Process.myTid()));
 
         //Building the API client - for Location Services API
         this.buildGoogleApiClient();
-
-        //Start background task on obtaining locations for heatmaps
-//        new updateLocationTask().execute();
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        //Initialising the UI components
         longitudeTV = (TextView) findViewById(R.id.longitudeText);
         latitudeTV = (TextView) findViewById(R.id.latitudeText);
         addressTV = (TextView) findViewById(R.id.addressTextView);
@@ -105,61 +106,56 @@ public class MapsActivity extends FragmentActivity implements GoogleApiClient.Co
         BtnClearEntries = (Button) findViewById(R.id.buttonClear);
         BtnViewHeatMap = (CheckBox) findViewById(R.id.showHeatMapButton);
         ControlMapZoom = (ZoomControls) findViewById(R.id.mapZoomControls);
-
         dbHandler = new DatabaseHandler(getApplicationContext(), null, null, 1);
 
         myLocations = dbHandler.getAllMyLocations();
-        showCheckIns(myLocations);
+        showCheckIns(myLocations); //display checkdin locations on launch
 
         hmdbHandler = new HMDatabaseHandler(getApplicationContext(), null, null, 1);
 
         if (Geocoder.isPresent()) {
             geocoder = new Geocoder(MapsActivity.this);
         }
-
-        BtnViewAllLocations.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                List<checkedInLocation> myLocations = dbHandler.getAllMyLocations();
-                    showCheckIns(myLocations);
-            }
-        });
-
-        BtnClearEntries.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dbHandler.clearDatabase();
-            }
-        });
+//          to view all checked in locations and clear the entries
+//        BtnViewAllLocations.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                List<checkedInLocation> myLocations = dbHandler.getAllMyLocations();
+//                showCheckIns(myLocations);
+//            }
+//        });
+//
+//        BtnClearEntries.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                dbHandler.clearDatabase();
+//            }
+//        });
 
     }
 
+    //Method to display the Checked in locations by the user
     private void showCheckIns(List<checkedInLocation> _myLocations) {
 
         AlertDialog.Builder _alertDialog = new AlertDialog.Builder(MapsActivity.this);
         _alertDialog.setTitle("CHECK-INS");
 
-        if(_myLocations.isEmpty())
-        {
-            Log.e("LOCATIONINJA", "LIST IS EMPTY");
-
-                    _alertDialog.setMessage("Sorry! You have no check-ins!");
+        if (_myLocations.isEmpty()) {
+//            Log.e("LOCATIONINJA", "LIST IS EMPTY");
+            _alertDialog.setMessage("Sorry! You have no check-ins!");
             _alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.cancel();
                 }
             });
-        }
-        else
-        {
+        } else {
             String _placenames[] = new String[dbHandler.getLocationsCount()];
 
             for (int index = 0; index < dbHandler.getLocationsCount(); index++) {
-                Log.e("LOCATIONINJA", String.valueOf(_myLocations.get(index).getId()) + ", " + _myLocations.get(index).get_nameofplace() +
-                        " , " + _myLocations.get(index).get_latitude() + " , " + _myLocations.get(index).get_longitude());
+//                Log.e("LOCATIONINJA", String.valueOf(_myLocations.get(index).getId()) + ", " + _myLocations.get(index).get_nameofplace() +
+//                        " , " + _myLocations.get(index).get_latitude() + " , " + _myLocations.get(index).get_longitude());
                 _placenames[index] = _myLocations.get(index).get_nameofplace();
-//            _myData.add(_myLocations.get(index).get_nameofplace());
             }
 
             LayoutInflater inflater = getLayoutInflater();
@@ -168,13 +164,11 @@ public class MapsActivity extends FragmentActivity implements GoogleApiClient.Co
             (convertView.findViewById(R.id.etext)).setVisibility(View.INVISIBLE);
 
             if (_placenames.length != 0) {
-                Log.e("LocatioNinja", "inside the non-empty checkins ");
                 ArrayAdapter<String> _myData = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, _placenames);
                 lv.setAdapter(_myData);
             }
 
             _alertDialog.setView(convertView);
-
             _alertDialog.setNeutralButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -185,13 +179,14 @@ public class MapsActivity extends FragmentActivity implements GoogleApiClient.Co
         _alertDialog.show();
     }
 
+    //Broadcast receiver for obtaining the change in location from the intent service
     static ArrayList<String> Distances = new ArrayList<>();
-    public static class _bReceiver extends BroadcastReceiver{
+    public static class _bReceiver extends BroadcastReceiver {
         Bundle extras;
+
         @Override
         public void onReceive(Context context, Intent intent) {
-            if(intent.getAction()=="UPDATELOCATION") {
-                Log.e("LOCATIONINJA", "Received broadcast");
+            if (intent.getAction() == "UPDATELOCATION") {
                 extras = intent.getExtras();
                 Distances = intent.getStringArrayListExtra("distances");
                 myLastlocation = (Location) extras.get("newlocation");
@@ -208,17 +203,17 @@ public class MapsActivity extends FragmentActivity implements GoogleApiClient.Co
                                 String.valueOf(myLastlocation.getLatitude()), String.valueOf(myLastlocation.getLongitude()));
                         dbh.createHMLocation(_checkedInLocation);
                     }
-                }, 10000, 300000);
+                }, 10000, 300000);//schedule task of updating the locations every 5 mins
             }
         }
     }
 
-    private boolean isGPSEnabled(){
+    private boolean isGPSEnabled() {
         locManager = (LocationManager) getBaseContext().getSystemService(LOCATION_SERVICE);
         return locManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 
-    private boolean isNetworkEnabled(){
+    private boolean isNetworkEnabled() {
         locManager = (LocationManager) getBaseContext().getSystemService(LOCATION_SERVICE);
         return locManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
     }
@@ -234,22 +229,17 @@ public class MapsActivity extends FragmentActivity implements GoogleApiClient.Co
         //TODO: Check if location enabled - else don't go ahead with application
 
         if (!isGPSEnabled() && !isNetworkEnabled()) {
-            Log.e("LocatioNinja", "Showing alert dialog for enabling location");
+//            Log.e("LocatioNinja", "Showing alert dialog for enabling location");
             showSettingsAlert();
-        }
-        else
+        } else
             mGoogleApiClient.connect();
     }
 
     @Override
-    public void onResume()
-    {
+    public void onResume() {
         super.onResume();
-        if(!mGoogleApiClient.isConnected() && isGPSEnabled() && isNetworkEnabled()) {
+        if (!mGoogleApiClient.isConnected() && (isGPSEnabled() || isNetworkEnabled())) {
             mGoogleApiClient.connect();
-        }
-        else if(!isGPSEnabled()&& !isNetworkEnabled()) {
-             BtnCheckIn.setEnabled(false);
         }
 
         BtnCheckIn.setOnClickListener(new View.OnClickListener() {
@@ -262,24 +252,28 @@ public class MapsActivity extends FragmentActivity implements GoogleApiClient.Co
     }
 
     EditText tv;
+
     private void showCheckingInAlert() {
         LayoutInflater inflater = getLayoutInflater();
         View convertView = (View) inflater.inflate(R.layout.locationlist, null);
         tv = (EditText) convertView.findViewById(R.id.etext);
 
-        AlertDialog.Builder _alertDialog = new AlertDialog.Builder(MapsActivity.this)
+        final AlertDialog.Builder _alertDialog = new AlertDialog.Builder(MapsActivity.this)
                 .setTitle("CHECKING IN")
-                .setView(convertView)
-                .setMessage("Enter a tag for your check-in here -");
+                .setView(convertView);
+        if(myLastlocation!=null)
+                _alertDialog.setMessage("Enter a tag for your check-in here -");
+        else
+            _alertDialog.setMessage("Location is not available");
 
         _alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                checkedInLocation _checkedInLocation = new checkedInLocation(dbHandler.getLocationsCount(), tv.getText().toString(),
-                        String.valueOf(myLastlocation.getLatitude()), String.valueOf(myLastlocation.getLongitude()));
-                dbHandler.createLocation(_checkedInLocation);
-                hmdbHandler.createHMLocation(_checkedInLocation);
-                dialog.dismiss();
+                   checkedInLocation _checkedInLocation = new checkedInLocation(dbHandler.getLocationsCount(), tv.getText().toString(),
+                            String.valueOf(myLastlocation.getLatitude()), String.valueOf(myLastlocation.getLongitude()));
+                    dbHandler.createLocation(_checkedInLocation);
+                    hmdbHandler.createHMLocation(_checkedInLocation);
+                    dialog.dismiss();
             }
         });
 
@@ -296,7 +290,9 @@ public class MapsActivity extends FragmentActivity implements GoogleApiClient.Co
      * installed Google Play services and returned to the app.
      */
 
+    //Display the Map View
     static LatLng myPresentLoc;
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -330,23 +326,24 @@ public class MapsActivity extends FragmentActivity implements GoogleApiClient.Co
                         index = 4;
                         break;
                 }
-
-                marker.setSnippet("you are " + Distances.get(index) + " miles away from here!");
+                if (!Distances.isEmpty()) {
+                    marker.setSnippet("you are " + Distances.get(index) + " miles away from here!");
+                }
                 marker.showInfoWindow();
                 return false;
             }
         });
 
-        mMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
-            @Override
-            public boolean onMyLocationButtonClick() {
-                //check if location enabled
-                if (isGPSEnabled() && isNetworkEnabled()) {
-                    BtnCheckIn.setEnabled(true);
-                }
-                return false;
-            }
-        });
+//        mMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
+//            @Override
+//            public boolean onMyLocationButtonClick() {
+//                //check if location enabled
+//                if (isGPSEnabled() && isNetworkEnabled()) {
+//                    BtnCheckIn.setEnabled(true);
+//                }
+//                return false;
+//            }
+//        });
 
         //implementing Zoom in-out controls
         ControlMapZoom.setOnZoomInClickListener(new View.OnClickListener() {
@@ -367,38 +364,37 @@ public class MapsActivity extends FragmentActivity implements GoogleApiClient.Co
         BtnViewHeatMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(BtnViewHeatMap.isChecked())
-                    addHeatMap();
+                 addHeatMap();
             }
         });
     }
 
+    //Method to add heatmap to the given map
     private void addHeatMap() {
-        List<checkedInLocation> _manualLocations = dbHandler.getAllMyLocations();
-        List<checkedInLocation> myLocations = hmdbHandler.getAllMyHMLocations();
-        myLocations.addAll(_manualLocations);
+            List<checkedInLocation> _manualLocations = dbHandler.getAllMyLocations();
+            List<checkedInLocation> myLocations = hmdbHandler.getAllMyHMLocations();
+            myLocations.addAll(_manualLocations);
 
-        Collection<LatLng> myCoordinates = new ArrayList<>();
+            Collection<LatLng> myCoordinates = new ArrayList<>();
 
-        for(int i = 0; i<myLocations.size();i++) {
-            myCoordinates.add(new LatLng(Double.parseDouble(myLocations.get(i).get_latitude()), Double.parseDouble(myLocations.get(i).get_longitude())));
-        }
+            for (int i = 0; i < myLocations.size(); i++) {
+                myCoordinates.add(new LatLng(Double.parseDouble(myLocations.get(i).get_latitude()), Double.parseDouble(myLocations.get(i).get_longitude())));
+            }
 
 //      Create a heat map tile provider, passing it the latlngs of the police stations.
-        HeatmapTileProvider provider = new HeatmapTileProvider.Builder().data(myCoordinates).build();
+            HeatmapTileProvider provider = new HeatmapTileProvider.Builder().data(myCoordinates).build();
 //      Add a tile overlay to the map, using the heat map tile provider.
-        mMap.addTileOverlay(new TileOverlayOptions().tileProvider(provider));
-
+            mMap.addTileOverlay(new TileOverlayOptions().tileProvider(provider).visible(BtnViewHeatMap.isChecked()));
     }
 
+    //Zooming to current location
     static boolean mapupd = false;
-    public static void updateMarker(Location location)
-    {
+    public static void updateMarker(Location location) {
         if (location != null) {
             Log.e("LocatioNinja", "my Location not null");
 
             myPresentLoc = new LatLng(location.getLatitude(), location.getLongitude());
-            if(!mapupd) {
+            if (!mapupd) {
 //                mMap.addMarker(new MarkerOptions().position(myPresentLoc).title("I am Here"));
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myPresentLoc, 13));
                 mapupd = true;
@@ -409,17 +405,16 @@ public class MapsActivity extends FragmentActivity implements GoogleApiClient.Co
         }
     }
 
-    private static void updateAddress(Location location)
-    {
+    //Method to update address of the present location
+    private static void updateAddress(Location location) {
 //            ---------------------------------------------------------------------------------------------------------------------------------------
 //            Using GeoCoder for obtaining the address given the location;
 //            geoCoder created in onCreate() method
-        if(location!=null) {
+        if (location != null) {
             List<Address> getAddresses = null;
             if (geocoder != null) {
-                Log.e("LocatioNinja", "Geocoder present, getting the address");
+//                Log.e("LocatioNinja", "Geocoder present, getting the address");
                 try {
-
                     getAddresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 10);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -428,7 +423,7 @@ public class MapsActivity extends FragmentActivity implements GoogleApiClient.Co
 
             if (getAddresses != null) {
                 for (int i = 0; i < getAddresses.size(); i++) {
-                    Log.e("LocationNinja", getAddresses.get(i).toString());
+//                    Log.e("LocationNinja", getAddresses.get(i).toString());
                     String addString = getAddresses.get(0).getAddressLine(0) + "\n" + getAddresses.get(0).getAddressLine(1) + "\n" +
                             getAddresses.get(0).getAddressLine(2);
                     addressTV.setText(addString);
@@ -440,6 +435,7 @@ public class MapsActivity extends FragmentActivity implements GoogleApiClient.Co
 
     @Override
     public void onLocationChanged(Location location) {
+
     }
 
     @Override
@@ -457,12 +453,13 @@ public class MapsActivity extends FragmentActivity implements GoogleApiClient.Co
     @Override
     public void onConnected(Bundle bundle) {
 
-        Log.e("LocatioNinja", "Inside getConnected method");
-        myLocationGetter = new MyLocationGetter(MapsActivity.this, mGoogleApiClient);
-        Intent intent = new Intent();
-        intent.setAction("GETLOCATION");
-        myLocationGetter.onBind(intent);
-        myLocationGetter.onHandleIntent(intent);
+//            Log.e("LocatioNinja", "Inside getConnected method");
+            //RACE AROUND CONDITIONS: MylocationGetter is an intent service and any task scheduled inside intentservice is on a worker thread and not the main thread. This helps prevent race around condition.
+            myLocationGetter = new MyLocationGetter(MapsActivity.this, mGoogleApiClient, isGPSEnabled(), isNetworkEnabled());
+            Intent intent = new Intent();
+            intent.setAction("GETLOCATION");
+            myLocationGetter.onBind(intent);
+            myLocationGetter.onHandleIntent(intent);
     }
 
     @Override
@@ -484,26 +481,29 @@ public class MapsActivity extends FragmentActivity implements GoogleApiClient.Co
         alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                //Launch the Location settings screen
                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                 MapsActivity.this.startActivityForResult(intent, 2);
             }
         });
 
-        alertDialog.setNegativeButton("Change settings later", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(MapsActivity.this, "Oopsie! ALL FUNCTIONALITIES WILL NOT BE AVAILABLE!", Toast.LENGTH_LONG).show();
-            }
-        });
+//        alertDialog.setNegativeButton("Change settings later", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                Toast.makeText(MapsActivity.this, "Oopsie! ALL FUNCTIONALITIES WILL NOT BE AVAILABLE!", Toast.LENGTH_LONG).show();
+//            }
+//        });
 
         alertDialog.show();
     }
 
+    //on location set from settings menu
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent _intent)
     {
         if(requestCode == 2) {
-            if(isGPSEnabled()&&isNetworkEnabled()) {
+            if(isGPSEnabled()||isNetworkEnabled()) {
                 BtnCheckIn.setEnabled(true);
                 mGoogleApiClient.connect();
             }
@@ -511,10 +511,10 @@ public class MapsActivity extends FragmentActivity implements GoogleApiClient.Co
     }
 
     @Override
-    public void onStop()
-    {
+    public void onStop()    {
         super.onStop();
         dbHandler.close();
+        hmdbHandler.close();
     }
 
 }

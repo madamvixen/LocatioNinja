@@ -32,7 +32,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_PRODUCTS_TABLE = "CREATE TABLE IF NOT EXISTS "+ TABLE_DOCS + "(" + KEY_ID +" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "+KEY_PLACENAME
-                + " TEXT NOT NULL," + KEY_LATITUDE + " TEXT NOT NULL UNIQUE," + KEY_LONGITUDE + " TEXT NOT NULL UNIQUE" + ")";
+                + " TEXT NOT NULL," + KEY_LATITUDE + " TEXT NOT NULL," + KEY_LONGITUDE + " TEXT NOT NULL" + ")";
 
 
 //        Log.e("DATABSE HELPER", "the query is: " + CREATE_PRODUCTS_TABLE);

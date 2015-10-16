@@ -33,7 +33,7 @@ public class HMDatabaseHandler  extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_HEATMAP_TABLE = "CREATE TABLE IF NOT EXISTS "+ TABLE_HM + "(" + KEY_HMID +" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-                KEY_HMNAME + " TEXT NOT NULL," + KEY_HMLATI + " TEXT NOT NULL UNIQUE," + KEY_HMLONG + " TEXT NOT NULL UNIQUE" + ")";
+                KEY_HMNAME + " TEXT," + KEY_HMLATI + " TEXT NOT NULL," + KEY_HMLONG + " TEXT NOT NULL" + ")";
 
 //        Log.e("DATABSE HELPER", "the query is: " + CREATE_PRODUCTS_TABLE);
         db.execSQL(CREATE_HEATMAP_TABLE);
@@ -50,6 +50,7 @@ public class HMDatabaseHandler  extends SQLiteOpenHelper {
 
         SQLiteDatabase db = getWritableDatabase();
         ContentValues _values = new ContentValues();
+        _values.put(KEY_HMNAME, _checkedInLocation.get_nameofplace());
         _values.put(KEY_HMLATI, _checkedInLocation.get_latitude());
         _values.put(KEY_HMLONG, _checkedInLocation.get_longitude());
         db.insert(TABLE_HM, null, _values);
